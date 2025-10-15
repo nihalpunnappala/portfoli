@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Placeholder Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #000;
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #00ff88;
+        }
+        .placeholder {
+            margin: 20px 0;
+            padding: 20px;
+            background: #111;
+            border-radius: 10px;
+            border: 2px solid #00ff88;
+        }
+        canvas {
+            border: 2px solid #00ff88;
+            margin: 10px 0;
+            display: block;
+        }
+        button {
+            background: #00ff88;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+        button:hover {
+            background: #00cc6e;
+        }
+        .info {
+            background: #222;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ Temporary Placeholder Generator</h1>
+        <p>Use these temporary placeholders until you add your actual images.</p>
+        
+        <div class="placeholder">
+            <h2>Profile Picture Placeholder</h2>
+            <canvas id="profileCanvas" width="400" height="400"></canvas>
+            <button onclick="downloadCanvas('profileCanvas', 'profile.jpg')">Download Profile Placeholder</button>
+            <div class="info">
+                <strong>Instructions:</strong>
+                <ol>
+                    <li>Click the "Download Profile Placeholder" button</li>
+                    <li>Save the file as <code>profile.jpg</code> in the <code>images</code> folder</li>
+                    <li>Replace it with your actual photo later</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="placeholder">
+            <h2>Media Player Project Placeholder</h2>
+            <canvas id="mediaCanvas" width="800" height="500"></canvas>
+            <button onclick="downloadCanvas('mediaCanvas', 'media-player.jpg')">Download Media Player Placeholder</button>
+        </div>
+        
+        <div class="placeholder">
+            <h2>E-Cart Project Placeholder</h2>
+            <canvas id="ecartCanvas" width="800" height="500"></canvas>
+            <button onclick="downloadCanvas('ecartCanvas', 'ecart.jpg')">Download E-Cart Placeholder</button>
+        </div>
+    </div>
+
+    <script>
+        // Generate Profile Placeholder
+        function createProfilePlaceholder() {
+            const canvas = document.getElementById('profileCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#111';
+            ctx.fillRect(0, 0, 400, 400);
+            
+            // Circle
+            ctx.beginPath();
+            ctx.arc(200, 200, 150, 0, 2 * Math.PI);
+            ctx.fillStyle = '#00ff88';
+            ctx.fill();
+            
+            // Text
+            ctx.fillStyle = '#000';
+            ctx.font = 'bold 80px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('NP', 200, 200);
+            
+            // Subtitle
+            ctx.font = 'bold 20px Arial';
+            ctx.fillStyle = '#fff';
+            ctx.fillText('Nihal P', 200, 350);
+        }
+        
+        // Generate Project Placeholders
+        function createProjectPlaceholder(canvasId, title) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, 800, 500);
+            gradient.addColorStop(0, '#000');
+            gradient.addColorStop(1, '#111');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 800, 500);
+            
+            // Border
+            ctx.strokeStyle = '#00ff88';
+            ctx.lineWidth = 4;
+            ctx.strokeRect(10, 10, 780, 480);
+            
+            // Title
+            ctx.fillStyle = '#00ff88';
+            ctx.font = 'bold 48px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(title, 400, 220);
+            
+            // Subtitle
+            ctx.fillStyle = '#fff';
+            ctx.font = '24px Arial';
+            ctx.fillText('Project Screenshot', 400, 280);
+            
+            // Icon (Code brackets)
+            ctx.strokeStyle = '#00ff88';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(300, 150);
+            ctx.lineTo(280, 180);
+            ctx.lineTo(300, 210);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(500, 150);
+            ctx.lineTo(520, 180);
+            ctx.lineTo(500, 210);
+            ctx.stroke();
+        }
+        
+        // Download canvas as image
+        function downloadCanvas(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+        }
+        
+        // Generate all placeholders on load
+        window.onload = function() {
+            createProfilePlaceholder();
+            createProjectPlaceholder('mediaCanvas', 'Media Player');
+            createProjectPlaceholder('ecartCanvas', 'E-Cart Platform');
+        };
+    </script>
+</body>
+</html>
